@@ -1,0 +1,76 @@
+<div>
+  <button mat-mini-fab color="primary"  style="background: #333333;"aria-label="Example icon button with a menu icon"  (click)= " openDialog()"  matTooltip="Ajouter un formateur">
+    <mat-icon style="background: #333333;">add</mat-icon>
+  </button>
+  <!-- <button (click)= " openDialog()"> Ajouter Formateur</button> -->
+  </div>
+<div class= "tool-container"  >
+  <button mat-button (click)="sidenavService.sidenavFormateur(0)" ><strong> Interne </strong></button>
+</div>
+
+
+<div *ngIf="sidenavService.formateurInterne">
+  <form class="example-form"  >
+      <mat-form-field class="example-full-width">
+        <input 
+        type="text"
+         placeholder ="Choisir"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    
+
+
+  
+    <mat-sidenav-container  class="tool-container" *ngFor="let option of filteredOptions| async; let i = index " [value]="option" >
+     
+       <div>
+      <button (click)="formateurService.formateureSelectionne(option); coursService.annulerToutCours()">
+          {{option}} 
+          </button>
+  </div>
+  </mat-sidenav-container>
+    
+</div>
+
+
+
+
+
+
+
+  <div class= "tool-container">
+  <button  mat-button (click)="sidenavService.sidenavFormateur(1)"><strong> Externe</strong></button>
+</div>
+
+<div *ngIf="sidenavService.formateurExterne">
+  <form class="example-form"  >
+      <mat-form-field class="example-full-width">
+        <input 
+        type="text"
+         placeholder ="Choisir"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    
+
+
+  
+    <mat-sidenav-container  class="tool-container" *ngFor="let option of filteredOptions| async; let i = index " [value]="option" >
+     
+       <div>
+      <button (click)="formateurService.formateureSelectionne(option); coursService.annulerToutCours()">
+          {{option}} 
+          </button>
+  </div>
+  </mat-sidenav-container>
+    
+</div>

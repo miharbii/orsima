@@ -1,0 +1,97 @@
+
+<mat-card class ="example-card">
+  <h1 >créer une session </h1>
+  <hr color="blue">
+
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Choisir date</mat-label>
+    <mat-date-range-input [rangePicker]="picker"  [dateFilter]="monFiltreDebut" [min]="minDate">
+      <input  [(ngModel)]="dateDebut" matInput matStartDate  placeholder="Start date" >
+      <input [(ngModel)]="dateFin"   [min]="minDate" matEndDate placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker  #picker></mat-date-range-picker>
+  </mat-form-field>
+
+
+
+
+
+  <h4>Heure debut:</h4>
+
+  <div class="min-time-example">
+    <input placeholder="Min time 03:15 am"
+        [ngxTimepicker]="min" [min]="'08:30 am'" [max] = "'5:30 pm'" [(ngModel)]="heureDebut" readonly>
+    <ngx-material-timepicker #min></ngx-material-timepicker>
+
+
+
+  <h4>Heure fin:</h4>
+    <input placeholder="Max time 06:18 pm"
+        [ngxTimepicker]="max" [min]="'8:30 am'" [max]="'05:30 pm'" [(ngModel)]="heureFin" readonly>
+    <ngx-material-timepicker #max></ngx-material-timepicker>
+</div>
+</div>
+
+<div> 
+ 
+  <mat-radio-group  class="radio-group" (change)="sidenavService.choisirTypeFormateur($event.value)">
+    <mat-icon>person</mat-icon> :
+      <mat-radio-button  [checked]="true" value="interne_" >Interne</mat-radio-button>
+      <mat-radio-button value="externe_" >Externe</mat-radio-button>
+  </mat-radio-group>
+</div>
+<div *ngIf = "sidenavService.formateurInterne ">
+<h4>Choisir formateur interne </h4>
+<mat-form-field  appearance="fill">
+  <mat-label>Formateur</mat-label>
+  <mat-select  [(ngModel)]="formateurInterneChoisi" > 
+    <mat-option *ngFor="let interne of formateurService.nomPrenomFormateurInterne"  [value]="interne">{{interne}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+</div>
+<div *ngIf = "sidenavService.formateurExterne ">
+  <h4>Choisir formateur externe </h4>
+  <mat-form-field appearance="fill">
+    <mat-label>Formateur</mat-label>
+    <mat-select [(ngModel)]="formateurExterneChoisi">
+      <mat-option *ngFor="let externe of formateurService.nomPrenomFormateurExterne" [value]="externe">{{externe}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  </div>
+  
+
+
+<h4>Support de cours </h4>
+<mat-form-field appearance="fill">
+  <mat-label>Selectionner votre choix</mat-label>
+  <select  matNativeControl id="mySelectId"  [(ngModel)]="supportCours" >
+    <option value="" disabled selected></option>
+    <option value="SupportElectronique">Support electronique</option>
+    <option value="SupportPapier">Support papier</option>
+  </select>
+</mat-form-field>
+<h4>    <button  mat-flat-button (click)="openDialogueListStagiaire()">Appuyer pour selectionner stagiaire</button>
+   </h4>
+
+
+<section class="example-section">
+  <label class="example-margin">Pause dejeuner:</label>
+  <mat-radio-group [(ngModel)]="pauseDejeuner">
+    <mat-radio-button  class="example-margin" value="dejeuner">oui</mat-radio-button>
+    <mat-radio-button  class="example-margin" value="nonDejeuner">non</mat-radio-button>
+  </mat-radio-group>
+</section>
+<div class="enregistrement-session">
+<div>
+<button mat-raised-button color="primary" (click)="enregistrer()" >Enregister</button>
+</div>
+<div>
+<button mat-raised-button color="primary" (click)="getReservation(); openDialogueListReservation()" >liste des sessions</button>
+</div>
+</div>
+
+</mat-card>

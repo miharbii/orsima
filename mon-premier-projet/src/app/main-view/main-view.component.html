@@ -1,0 +1,613 @@
+<div  class="header">
+    <img calss= "image"src="https://www.orsima.com/images/logo_orsima.png" width="200" height="35" >
+</div>
+  
+<div fxLayout="row" class="side-bar-left">
+
+    <mat-sidenav-container class="container">
+    
+        <mat-nav-list>
+            <div class="top">
+                <button  class=" button" type="button" matTooltip="Calendrier" mat-button (click)="sidenavService.ouvrirSidNav(0);coursService.annulerToutCours()">
+                    <mat-icon>calendar_today</mat-icon>
+                </button >
+            
+                <button  class=" button" type="button" matTooltip="Catalogue de formation" mat-button (click)="sidenavService.ouvrirSidNav(1)">
+                        <mat-icon>menu_book</mat-icon>
+                    </button>
+                <button  class=" button" type="button"  matTooltip="Formateur" mat-button (click)="sidenavService.ouvrirSidNav(2); formateurService.getFormateurInterne();formateurService.getFormateurExterne()" >
+                    <mat-icon>person</mat-icon>
+                </button>
+                <button  class=" button" type="button"  matTooltip="Stagiaire"mat-button (click)="sidenavService.ouvrirSidNav(3); stagiareService.getStagiaire();">
+                    <mat-icon>people</mat-icon>
+                </button>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav-container>
+
+    <mat-sidenav-container class="tool-container" *ngIf="sidenavService.catalogueDeFormationOuvert" >
+        <div>
+            <button class=" button" type="button" mat-button (click)="sidenavService.ouvrirSidNavCatalogue(0)">
+                <img src="https://www.dell.com/community/s/html/@8DCCE0F2FE3135643573F6D504B5CB5C/assets/Dell_Logo_Wht_rgb.png" width="50" height="50">
+            </button>
+            <button class=" button" type="button" mat-button (click)="sidenavService.ouvrirSidNavCatalogue(1)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Fortinet_logo.svg/800px-Fortinet_logo.svg.png" width="150" height="25">
+            </button>
+            <button class=" button" type="button" mat-button (click)="sidenavService.ouvrirSidNavCatalogue(2)">
+                <img src="http://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE2qVsJ?ver=3f74" width="200" height="75">
+            </button>
+            <button class=" button" type="button" mat-button (click)="sidenavService.ouvrirSidNavCatalogue(3)">
+                <img src="https://www.veritas.com/content/dam/Veritas/images/thread-homepage/vtas.png" width="100" height="25">
+            </button>
+            <button class=" button" type="button" mat-button (click)="sidenavService.ouvrirSidNavCatalogue(4)">
+                <img src="data:image/png;base64,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" width="200" height="60">
+            </button>
+        
+        </div>
+    </mat-sidenav-container>
+
+   
+   
+   
+   
+    <mat-sidenav-container class="barre-recherche" *ngIf="sidenavService.dellOuvert" >
+       <div>
+           <app-barre-recherche></app-barre-recherche>        
+       </div>
+   </mat-sidenav-container>
+   <mat-sidenav-container class="barre-recherche" *ngIf="sidenavService.fortinetOuvert" >
+    <div>
+        <app-barre-recherche></app-barre-recherche>        
+    </div>
+</mat-sidenav-container>
+<mat-sidenav-container class="barre-recherche" *ngIf="sidenavService.microsoftOuvert" >
+    <div>
+        <app-barre-recherche></app-barre-recherche>        
+    </div>
+</mat-sidenav-container>
+<mat-sidenav-container class="barre-recherche" *ngIf="sidenavService.veritasOuvert" >
+    <div>
+        <app-barre-recherche></app-barre-recherche>        
+    </div>
+</mat-sidenav-container>
+<mat-sidenav-container class="barre-recherche" *ngIf="sidenavService.vmwareOuvert" >
+    <div>
+        <app-barre-recherche></app-barre-recherche>        
+    </div>
+</mat-sidenav-container>
+
+<mat-sidenav-container class="barre-recherche" *ngIf="sidenavService.stagiaireOuvert" >
+    <div>
+        <app-stagiaire></app-stagiaire>        
+    </div>
+</mat-sidenav-container>
+<mat-sidenav-container class="barre-recherche" *ngIf="sidenavService.formateurOuvert" >
+    <div>
+        <app-formateur></app-formateur>        
+    </div>
+</mat-sidenav-container>
+
+<div *ngIf="sidenavService.calendrierOuvert" >
+    <app-calendrier></app-calendrier>
+
+</div>
+
+<!-- <div *ngIf="!sidenavService.calendrierOuvert && !sidenavService.formateurOuvert" >
+    <app-calendrier></app-calendrier>
+
+</div> -->
+
+
+
+
+
+<div class="example-label" *ngIf="stagiaireFormateurService.stagiaireSelectionner">
+    <mat-card class ="example-card">
+        <h1>Stagiaire</h1>
+        <hr color="blue">
+        <h3><b>Nom stagiaire</b>: {{stagiareService.unStagiaire?.nom}}</h3>
+    <h3><b>Prenom stagiaire</b>: {{stagiareService.unStagiaire?.prenom}}</h3>
+    <h3><b>compagnie du stagiaire</b>: {{stagiareService.unStagiaire?.compagnie}}</h3>
+    <div>
+        <button calss="modifier" mat-raised-button color="primary" (click)='onModifier(); ajoutElementService.getNomPrenomAModifier(stagiareService.unStagiaire.nomPrenom)'>Modifier</button>
+    </div>
+    <div>
+        <button calss="supprimer"mat-raised-button color="primary" (click)="supprimerStagiere(stagiareService.unStagiaire.nomPrenom)">
+            <mat-icon>delete</mat-icon>
+
+        </button>
+
+    </div>
+   
+    </mat-card>      
+   
+    
+    
+</div>
+
+
+<div class="example-label"*ngIf="stagiaireFormateurService.formateurSelectionner">
+    <mat-card class="example-card">
+
+    <h1>Formateur</h1>
+    <hr color="blue">
+
+    <h3><b>Nom formateur</b>: {{formateurService.unFormateur?.nom}}</h3>
+        <h3><b>Prenom formateur </b>: {{formateurService.unFormateur?.prenom}}</h3>
+            <h3><b>Type de formateur</b>: {{formateurService.unFormateur?.typeInterne}}</h3>
+    
+            <div>
+                <button calss="modifier" mat-raised-button color="primary" (click)='onModifierFormateur(); ajoutElementService.getNomPrenomAModifier(formateurService.unFormateur.nomPrenom)'>Modifier</button>
+        
+                <!-- <button (click)='onModifierFormateur(); ajoutElementService.getNomPrenomAModifier(formateurService.unFormateur.nomPrenom)'>Modifier</button> -->
+            </div>
+    <div>
+        <!-- <button  mat-button (click)="supprimerFormateur(formateurService.unFormateur.nomPrenom);">Supprimer</button> -->
+        <button calss="supprimer"mat-raised-button color="primary"(click)="supprimerFormateur(formateurService.unFormateur.nomPrenom);">
+            <mat-icon>delete</mat-icon>
+
+        </button>
+    </div>
+
+</mat-card>
+
+</div>
+
+<!-- <div *ngFor="let drawing of tousStagiaire; let i = index" class="drawing">
+    
+<div>
+    <button  mat-button (click)="supprimerStagiere(drawing.nom)">supp</button>
+</div> -->
+<!-- </div> -->
+
+<!-- <div class="card-body" *ngIf ="coursService.dellEmcAvamarManagement">
+    <title>HTML Elements Reference</title>
+
+    <h1>DELL EMC Avamar Management</h1>
+    <h3 >
+        <span> Bienvenue a la formation de DELL EMC Avamar Management </span>
+    </h3>
+    <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+
+</div> -->
+  
+<div class="cours" *ngIf ="coursService.dellEmcAvamarManagement">
+    <mat-card class="card">
+        <h1>DELL EMC Avamar Management </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de DELL EMC Avamar Management </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.dell.com/community/s/vjauj58549/attachments/vjauj58549/storage-wiki-jp/424/1/Avamar%20Management%20Course%20Description.pdf">Plan de cours</a>
+</mat-card>
+
+</div>
+<div class="cours"*ngIf ="coursService.dellEmcDataDomainSystemeAdminitration">
+    <mat-card class="card">
+        <h1>DELL EMC Data Domain System Administration </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de DELL EMC Data Domain System Administration </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://education.dellemc.com/content/dam/dell-emc/documents/en-us/E20_585_Data_Domain_Specialist_Exam.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.dellEmcM1000eInstallationAdministationTrousbleshooting">
+    <mat-card class="card">
+        <h1>DELL EMC M1000eInstallation, Administration and Troubleshooting </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation deDELL EMC M1000eInstallation, Administration and Troubleshooting </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://cdn.fbsbx.com/v/t59.2708-21/117767983_332740234772547_4974246845749344590_n.pdf/dell_m1000e_and_fx_installation_configuration_management-2.pdf?_nc_cat=107&_nc_sid=0cab14&_nc_ohc=dXUSfvK6ajsAX-YGERn&_nc_ht=cdn.fbsbx.com&oh=77434d800ba4b2ea1a638bec18c69270&oe=5F3FA0E5&dl=1&fbclid=IwAR2GB55rxckxnnjPymigPau00LvaroHx-QLO0THiifh7vjXbQxTLUYzP5W8">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.dellEmcNetworkerImplementationManagement">
+    <mat-card class="card">
+        <h1>DELL EMC Networker Implementation and Management </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation deDELL EMC Networker Implementation and Management</span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://cdn.fbsbx.com/v/t59.2708-21/118207493_736600513569004_5226083857635494103_n.pdf/Networker-2.pdf?_nc_cat=102&_nc_sid=0cab14&_nc_ohc=1QaJQlGVHAgAX8T1KVO&_nc_ht=cdn.fbsbx.com&oh=e354d7f4084776df64048e8b03e529ef&oe=5F3F85C8&dl=1&fbclid=IwAR17Opy_0-61u1NNO9rnJnHgMLf6LEBvqR8Liobw_ouB5OIUJwo_74b2D8o">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours" *ngIf ="coursService.dellEmcRecoverPoint">
+    <mat-card class="card">
+        <h1>DELL EMC RecoverPoint </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de DELL EMC RecoverPoint </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://cdn.fbsbx.com/v/t59.2708-21/118226130_3057079447753488_6285585023355343011_n.pdf/RecoverPoint-Management-2.pdf?_nc_cat=100&_nc_sid=0cab14&_nc_ohc=QCgLL_ftCYsAX-ADl_w&_nc_ht=cdn.fbsbx.com&oh=b04ddb9ab615c3c2b74ccf8ac97d7ca1&oe=5F3F38D2&dl=1&fbclid=IwAR0b-EyJhSIOdeHyX3Mz-ZueeIF17hcWmxVNgAMJl-9n20lvXzE63No3mws">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.dellEmcScSeriesImplenetationAdministration">
+    <mat-card class="card">
+        <h1>DELL EMC SC Series Implementation and Administration </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de DELL EMC SC Series Implementation and Administration </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.dellEmcUnityImplementationADMINISTRATION">
+    <mat-card class="card">
+        <h1>DELL EMC Unity Implementation and Administration </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de DELL EMC Unity Implementation and Administration </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.dellEmcVxrailApplianceAdministrationManagement">
+    <mat-card class="card">
+        <h1>DELL EMC VxRail Appliance Administration and Management </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de DELL EMC VxRail Appliance Administration and Management </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.dellNetworkingCampus">
+    <mat-card class="card">
+        <h1>DELL Networking Campus</h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de DELL Networking Campus </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+
+<div class="cours"*ngIf ="coursService.dellNetworkingDataCenterAdvancedFeaturesAdministration">
+    <mat-card class="card">
+        <h1>DELL Networking Data Center Advanced Features & Administration</h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de DELL Networking Data Center Advanced Features & Administration </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.fortiAdc">
+    <mat-card class="card">
+        <h1>FortiADC</h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de FortiADC</span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.fortinet.com/content/dam/fortinet/assets/training/FortiADC_for_D_Series_Course_Description-Online.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.fortiGateInfrastructure">
+    <mat-card class="card">
+        <h1>FortiGate Infrastructure</h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de FortiGate Infrastructure </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.fortinet.com/content/dam/fortinet/assets/training/FortiGate_I_Course_Description-Online.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.fortiGateSecutity">
+    <mat-card class="card">
+        <h1>FortiGate Security </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de FortiGate Security </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.fortinet.com/content/dam/fortinet/assets/training/FortiGate_II_Course_Description-Online.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.fortiWeb">
+    <mat-card class="card">
+        <h1>FortiWeb </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de FortiWeb </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.fortitraining.nl/docs/fortiweb.pdf">Plan de cours</a>
+</mat-card>
+</div>
+
+
+
+<div class="cours"*ngIf ="coursService.VMwareNSXInstallConfigureManage">
+    <mat-card class="card">
+        <h1>VMware NSX Install, Configure, Manage </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de VMware NSX Install, Configure, Manage</span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://mylearn.vmware.com/descriptions/EDU_DATASHEET%20NSX%20Install,%20Configure,%20Manage%20V6.4.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.VMwarevCenterSiteRecoveryManager">
+    <mat-card class="card">
+        <h1>VMware vCenter Site Recovery Manager </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de VMware vCenter Site Recovery Manager </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://mylearn.vmware.com/descriptions/EDU_DATASHEET%20VMware%20Site%20Recovery%20Manager%20Install%20Configure%20Manage%20V8.2.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.VMwarevRealizeOperations">
+    <mat-card class="card">
+        <h1>VMware vRealize Operations </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de VMware vRealize Operations </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://mylearn.vmware.com/descriptions/EDU_DATASHEET%20VMware%20vRealize%20Operations%20Install%20Configure%20Manage%20V73.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.VMwarevSANdeployandmanage">
+    <mat-card class="card">
+        <h1>VMware vSAN deploy and manage </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de VMware vSAN deploy and manage </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://mylearn.vmware.com/descriptions/EDU_DATASHEET_VMware%20vSAN%20Deploy%20and%20Manage%20V6.7.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.VMwarevSphereInstallConfigureandManage">
+    <mat-card class="card">
+        <h1>VMware vSphere Install, Configure and Manage</h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de VMware vSphere Install, Configure and Manage </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://mylearn.vmware.com/descriptions/EDU_DATASHEET_vSphere%20Install%20Configure%20Manage%20V6.7.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.VMwarevSpheretroubleshootingworkshop">
+    <mat-card class="card">
+        <h1>VMware vSphere troubleshooting workshop</h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de VMware vSphere troubleshooting workshop</span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.AdministrationMicrosoftExchangeServer">
+    <mat-card class="card">
+        <h1>Administration de Microsoft Exchange Server </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de Administration de Microsoft Exchange Server </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://cdn.fbsbx.com/v/t59.2708-21/118231411_1168076013567564_3392729562804622118_n.pdf/Exchange.pdf?_nc_cat=106&_nc_sid=0cab14&_nc_ohc=vyD_Lw8sxuwAX-NR7hO&_nc_ht=cdn.fbsbx.com&oh=896b60fe468633653b2cb345cf891352&oe=5F3F47F1&dl=1&fbclid=IwAR3m3xPuHCJor9UA5E8PDbbHm8dDSyid1VP40SgNl_RiuNh0_KA4Dg0e51w">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.IdentityWindowsServer2016">
+    <mat-card class="card">
+        <h1>Identity with Windows Server 2016 </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de Identity with Windows Server 2016 </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://cdn.fbsbx.com/v/t59.2708-21/118155460_302940660965532_3536423873724489615_n.pdf/WS2016-AD-identity-20742B.pdf?_nc_cat=108&_nc_sid=0cab14&_nc_ohc=J2EplzhYInIAX8XWo9x&_nc_ht=cdn.fbsbx.com&oh=ab70f1371d711c2f81e2d7685a44ba3f&oe=5F3F3BAF&dl=1&fbclid=IwAR2GB55rxckxnnjPymigPau00LvaroHx-QLO0THiifh7vjXbQxTLUYzP5W8">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.ImplementingSoftwareDefinedDatacenter">
+    <mat-card class="card">
+        <h1>Implementing a Software-Defined Datacenter </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de Implementing a Software-Defined Datacenter </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.InstallationStorageComputeWindowsServer2016">
+    <mat-card class="card">
+        <h1>Installation, Storage, and Compute with Windows Server 2016 </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de Installation, Storage, and Compute with Windows Server 2016 </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://cdn.fbsbx.com/v/t59.2708-21/118203651_2440698202901724_1174629703275124459_n.pdf/WS2016-compute-storage-20740C.pdf?_nc_cat=100&_nc_sid=0cab14&_nc_ohc=GUpm3KKcRksAX_8fwQW&_nc_ht=cdn.fbsbx.com&oh=7acd129c96fb40a93f1fd1529b403b87&oe=5F3F3F45&dl=1&fbclid=IwAR3H1US5_rs336q_OaD4glVCU8hrP8WJkQb3evISky9qgJV123eVw07bW1I">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.Office365AdministrationTroubleshooting">
+    <mat-card class="card">
+        <h1>Office 365 Administration and Troubleshooting </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de Office 365 Administration and Troubleshooting </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.SQLServerAdministeringSQLDatabaseInfrastructure">
+    <mat-card class="card">
+        <h1>SQL Server Administering a SQL Database Infrastructure </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de SQL Server Administering a SQL Database Infrastructure </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.SystemCenterConfigurationManager">
+    <mat-card class="card">
+        <h1>System Center Configuration Manager </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de System Center Configuration Manager </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.SystemCenterOperationManager">
+    <mat-card class="card">
+        <h1>System Center Operation Manager </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de System Center Operation Manager </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.SystemCenterServiceManager">
+    <mat-card class="card">
+        <h1>System Center Service Manager</h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de System Center Service Manager</span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.hec.ca/etudiants/financer-mes-etudes/bourses/documents/Exemples_projets_de_recherche_PHD.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.VeritasBackupExecAdministration">
+    <mat-card class="card">
+        <h1>Veritas Backup Exec Administration </h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation de Veritas Backup Exec Administration </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.veritas.com/content/dam/Veritas/docs/education/cdesc_be20_1_admin.pdf">Plan de cours</a>
+</mat-card>
+</div>
+<div class="cours"*ngIf ="coursService.VeritasNetBackup">
+    <mat-card class="card">
+        <h1>Veritas NetBackup</h1>
+        <hr color="blue">
+
+
+        <h3 style = " text-align: center;">
+        <span> Bienvenue a la formation deVeritas NetBackup </span>
+        </h3>
+        <img src="https://seeklogo.com/images/A/Adobe_PDF-logo-84B633809C-seeklogo.com.png" width="20" height="20">
+
+        <a href="https://www.veritas.com/content/dam/Veritas/docs/education/cdesc_nbu812_Admin.pdf">Plan de cours</a>
+</mat-card>
+</div>
+</div>

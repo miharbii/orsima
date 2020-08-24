@@ -1,0 +1,26 @@
+<div *ngIf="!sidenavService.formateurOuvert">
+<form class="example-form"  >
+    <mat-form-field class="example-full-width">
+      <input type="text"
+       placeholder ="Choisir"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+
+  <mat-sidenav-container  class="tool-container" *ngFor="let option of filteredOptions | async" [value]="option" >
+    <div>
+        <button (click)="coursService.coursSelectionner(option)">
+            {{option}}       
+            </button>
+    </div>
+</mat-sidenav-container>
+</div>
+
+
+
+
+
