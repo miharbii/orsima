@@ -1,0 +1,29 @@
+    <form class="example-form"  [formGroup]="stateForm">
+      <mat-form-field  class="example-full-width">
+        <input type="text"
+               matInput
+               placeholder="States Group"
+               formControlName="stateGroup"
+               required
+               [matAutocomplete]="autoGroup">
+    <!-- #docregion mat-autocomplete -->
+          <mat-autocomplete #autoGroup="matAutocomplete">
+            <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
+              <mat-option *ngFor="let name of group.names" [value]="name">
+                {{name}}
+              </mat-option>
+          </mat-optgroup>
+        </mat-autocomplete>
+    <!-- #enddocregion mat-autocomplete -->
+      </mat-form-field>
+    </form>
+    <div *ngIf="sidenavService.formateurOuvert" > 
+    <mat-sidenav-container  class="tool-container" *ngFor="let group of stateGroupOptions | async" [label]="group.letter"  >
+      <div *ngFor="let name of group.names" [value]="name">
+          <button >
+              {{name}}      
+              ( {{group.letter}} ) 
+              </button>
+      </div>
+    </mat-sidenav-container>
+</div>

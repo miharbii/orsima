@@ -1,0 +1,49 @@
+
+
+
+<h4>Date debut</h4>
+<mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>choisi date du debut </mat-label>
+    <input matInput [matDatepickerFilter]="monFiltreDebut" [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <h4>Date fin</h4>
+<mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>choisi date de fin </mat-label>
+    <input matInput [matDatepickerFilter]="monFiltrefin" [matDatepicker]="picker1">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+
+  <h4>Heure debut</h4>
+  <div class="ngx-timepicker-field-example">
+    <ngx-timepicker-field [format]="24" [defaultTime]="'23:11'"></ngx-timepicker-field>
+  </div>
+  <h4>Heure fin</h4>
+  <div class="ngx-timepicker-field-example">
+    <ngx-timepicker-field [format]="24" [defaultTime]="'23:11'"></ngx-timepicker-field>
+  </div>
+
+  
+<h4>Nom formateur </h4>
+<app-formateur></app-formateur>
+
+<h4>Support de cours </h4>
+<mat-form-field appearance="fill">
+  <mat-label>Selectionner votre choix</mat-label>
+  <select matNativeControl id="mySelectId">
+    <option value="" disabled selected></option>
+    <option value="electronique">Support electronique</option>
+    <option value="papier">Support papier</option>
+  </select>
+</mat-form-field>
+
+<section class="example-section">
+  <label class="example-margin">Pause dejeuner:</label>
+  <mat-radio-group [(ngModel)]="labelPosition">
+    <mat-radio-button class="example-margin" value="dejeuner">oui</mat-radio-button>
+    <mat-radio-button class="example-margin" value="nonDejeuner">non</mat-radio-button>
+  </mat-radio-group>
+</section>
